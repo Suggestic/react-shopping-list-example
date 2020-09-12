@@ -15,14 +15,15 @@ function Recipe({ title, items, recipeServings, recipeId, userServings }) {
   const listItems = items.map((item) => {
     let quantity = recipeServings;
 
+    // If user updated original recipe servings
     if (userServings !== recipeServings) {
-      quantity = (userServings * item.node.quantity) / recipeServings;
+      quantity = (servings * item.node.quantity) / recipeServings;
     }
 
     return (
       <li key={item.node.databaseId} style={{ marginTop: 10 }}>
-        <b>{item.node.ingredientLine}</b> ({quantity} {item.node.ingredient}{" "}
-        {item.node.unit})
+        <b>{item.node.ingredientLine}</b> ({quantity.toFixed(1)}{" "}
+        {item.node.ingredient} {item.node.unit})
       </li>
     );
   });

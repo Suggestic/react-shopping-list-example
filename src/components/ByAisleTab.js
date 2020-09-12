@@ -7,7 +7,7 @@ import SHOPPING_LIST_AGGREGATE from "../querys/ShoppingListAggregate";
 
 function Aisle({ aisle, items }) {
   const listItems = items.map((item) => (
-    <li key={item.node.databaseId} style={{marginTop: 10}}>
+    <li key={item.node.databaseId} style={{ marginTop: 10 }}>
       <b>{item.node.ingredient}</b> - {item.node.quantity} {item.node.unit} (
       {item.node.grams.toFixed(1)}) gr
     </li>

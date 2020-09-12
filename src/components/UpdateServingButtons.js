@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import { EuiFlexGroup, EuiFlexItem, EuiButton } from "@elastic/eui";
+import { EuiFlexGroup, EuiFlexItem, EuiButtonIcon } from "@elastic/eui";
 import { useMutation } from "@apollo/client";
 
 import UPDATE_SERVINGS from "../mutations/updateServings";
@@ -14,47 +14,49 @@ export default function RecipeSearch({
   const [updateServings, { loading, error }] = useMutation(UPDATE_SERVINGS);
 
   const increment = () => {
-    updateNumberOfServings(numberOfServings + 1);
+    let newServing = numberOfServings + 1;
+    updateNumberOfServings(newServing);
     updateServings({
-      variables: { recipeId: recipeId, numberOfServings: numberOfServings },
+      variables: { recipeId: recipeId, numberOfServings: newServing },
     });
+    setServings(newServing);
   };
 
   const decrease = () => {
-    updateNumberOfServings(numberOfServings - 1);
+    let newServing = numberOfServings - 1;
+    updateNumberOfServings(newServing);
     updateServings({
-      variables: { recipeId: recipeId, numberOfServings: numberOfServings },
+      variables: { recipeId: recipeId, numberOfServings: newServing },
     });
+    setServings(newServing);
   };
 
-  useEffect(() => {
-    setServings(numberOfServings);
-  }, [numberOfServings, setServings]);
+  if (error) return `Error! ${error}`;
 
   return (
     <EuiFlexGroup gutterSize="s" alignItems="center" wrap>
+      <EuiFlexItem grow={false}>{numberOfServings} Servings</EuiFlexItem>
+
       <EuiFlexItem grow={false}>
-        <EuiButton
+        <EuiButtonIcon
           isLoading={loading}
           size="s"
+          iconType="minusInCircle"
           onClick={() => {
             decrease();
           }}
-        >
-          -
-        </EuiButton>
+        />
       </EuiFlexItem>
 
       <EuiFlexItem grow={false}>
-        <EuiButton
+        <EuiButtonIcon
           isLoading={loading}
           size="s"
+          iconType="plusInCircle"
           onClick={() => {
             increment();
           }}
-        >
-          +
-        </EuiButton>
+        />
       </EuiFlexItem>
     </EuiFlexGroup>
   );
