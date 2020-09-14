@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 
-import { EuiText, EuiSpacer, EuiProgress } from "@elastic/eui";
+import { EuiText, EuiSpacer, EuiProgress, EuiToolTip } from "@elastic/eui";
 
 import { useQuery } from "@apollo/client";
 import SHOPPING_LIST from "../querys/ShoppingList";
@@ -9,7 +9,7 @@ import UpdateServingButtons from "./UpdateServingButtons";
 
 const itemStyles = {
   item: {
-    marginTop: 10,
+    marginTop: 13,
   },
   isDone: {
     textDecoration: "line-through",
@@ -36,8 +36,11 @@ function Recipe({ title, items, recipeServings, recipeId, userServings }) {
           ...(item.node.isDone ? itemStyles.isDone : {}),
         }}
       >
-        <b>{item.node.ingredientLine}</b> ({quantity.toFixed(1)}{" "}
-        {item.node.ingredient} {item.node.unit})
+        <EuiToolTip position="right" content={item.node.ingredientLine}>
+          <Fragment>
+            <b>{item.node.ingredient}</b> {quantity.toFixed(1)} {item.node.unit}
+          </Fragment>
+        </EuiToolTip>
       </li>
     );
   });
@@ -56,7 +59,7 @@ function Recipe({ title, items, recipeServings, recipeId, userServings }) {
         setServings={setServings}
       />
 
-      <EuiSpacer size="xs" />
+      <EuiSpacer size="m" />
       <ul>{listItems}</ul>
       <EuiSpacer size="xs" />
     </Fragment>
