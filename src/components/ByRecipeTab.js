@@ -18,16 +18,14 @@ const itemStyles = {
 };
 
 function Recipe({ title, items, recipeServings, recipeId, userServings }) {
-  let _servings =
-    userServings !== recipeServings ? userServings : recipeServings;
-  const [servings, setServings] = useState(_servings);
+  const [servings, setServings] = useState(userServings);
 
   const listItems = items.map((item) => {
-    let quantity = recipeServings;
+    let quantity = item.node.floatQuantity;
 
     // If user updated original recipe servings
-    if (userServings !== recipeServings) {
-      quantity = (servings * item.node.quantity) / recipeServings;
+    if (servings !== recipeServings) {
+      quantity = (servings * quantity) / recipeServings;
     }
 
     return (
@@ -48,11 +46,12 @@ function Recipe({ title, items, recipeServings, recipeId, userServings }) {
     <Fragment>
       <EuiSpacer size="m" />
       <EuiText>
-        <b>{title}</b> {servings}
+        <b>{title}</b>
       </EuiText>
 
       <UpdateServingButtons
         initialServing={servings}
+        defaultServings={servings === recipeServings}
         recipeId={recipeId}
         setServings={setServings}
       />
@@ -65,7 +64,9 @@ function Recipe({ title, items, recipeServings, recipeId, userServings }) {
 }
 
 export default () => {
-  const { loading, error, data } = useQuery(SHOPPING_LIST);
+  const { loading, error, data } = useQuery(SHOPPING_LIST, {
+    fetchPolicy: "network-only",
+  });
 
   if (loading)
     return (

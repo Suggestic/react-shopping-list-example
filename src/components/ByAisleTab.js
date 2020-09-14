@@ -59,7 +59,9 @@ function Aisle({ aisle, items }) {
 }
 
 export default () => {
-  const { loading, error, data } = useQuery(SHOPPING_LIST_AGGREGATE);
+  const { loading, error, data } = useQuery(SHOPPING_LIST_AGGREGATE, {
+    fetchPolicy: "network-only",
+  });
 
   if (loading)
     return (
@@ -82,8 +84,6 @@ export default () => {
       <Aisle aisle={key} items={itemsByAisle[key]} key={`aisle-key-${key}`} />
     );
   });
-
-  console.log(aisleGroups);
 
   return <Fragment>{aisleGroups}</Fragment>;
 };

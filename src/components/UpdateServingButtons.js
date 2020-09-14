@@ -7,6 +7,7 @@ import UPDATE_SERVINGS from "../mutations/updateServings";
 
 export default function RecipeSearch({
   initialServing,
+  defaultServings,
   recipeId,
   setServings,
 }) {
@@ -35,11 +36,14 @@ export default function RecipeSearch({
 
   return (
     <EuiFlexGroup gutterSize="s" alignItems="center" wrap>
-      <EuiFlexItem grow={false}>{numberOfServings} Servings</EuiFlexItem>
+      <EuiFlexItem grow={false}>
+        {numberOfServings} Servings {defaultServings ? "(default)" : null}
+      </EuiFlexItem>
 
       <EuiFlexItem grow={false}>
         <EuiButtonIcon
-          isLoading={loading}
+          aria-label="decrease"
+          isDisabled={loading}
           size="s"
           iconType="minusInCircle"
           onClick={() => {
@@ -50,7 +54,8 @@ export default function RecipeSearch({
 
       <EuiFlexItem grow={false}>
         <EuiButtonIcon
-          isLoading={loading}
+          aria-label="increment"
+          isDisabled={loading}
           size="s"
           iconType="plusInCircle"
           onClick={() => {
