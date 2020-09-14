@@ -2,12 +2,45 @@ import React, { Fragment } from "react";
 
 import { EuiText, EuiSpacer, EuiProgress } from "@elastic/eui";
 
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
+import SHOPPING_LIST from "../querys/ShoppingList";
 import SHOPPING_LIST_AGGREGATE from "../querys/ShoppingListAggregate";
+import TOGGLE_SHOPPING_LIST_ITEM from "../mutations/toggleShoppingListItem";
+
+const itemStyles = {
+  item: {
+    marginTop: 10,
+  },
+  isDone: {
+    textDecoration: "line-through",
+    color: "#86868b",
+  },
+};
 
 function Aisle({ aisle, items }) {
+  const [toggleShoppingList] = useMutation(TOGGLE_SHOPPING_LIST_ITEM);
+
   const listItems = items.map((item) => (
-    <li key={item.node.databaseId} style={{ marginTop: 10 }}>
+    <li
+      key={item.node.databaseId}
+      style={{
+        ...itemStyles.item,
+        ...(item.node.isDone ? itemStyles.isDone : {}),
+      }}
+      onClick={() =>
+        toggleShoppingList({
+          variables: { isAggregate: true, itemId: item.node.databaseId },
+          refetchQueries: [
+            {
+              query: SHOPPING_LIST_AGGREGATE,
+            },
+            {
+              query: SHOPPING_LIST,
+            },
+          ],
+        })
+      }
+    >
       <b>{item.node.ingredient}</b> - {item.node.quantity} {item.node.unit} (
       {item.node.grams.toFixed(1)}) gr
     </li>

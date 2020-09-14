@@ -7,6 +7,16 @@ import SHOPPING_LIST from "../querys/ShoppingList";
 
 import UpdateServingButtons from "./UpdateServingButtons";
 
+const itemStyles = {
+  item: {
+    marginTop: 10,
+  },
+  isDone: {
+    textDecoration: "line-through",
+    color: "#86868b",
+  },
+};
+
 function Recipe({ title, items, recipeServings, recipeId, userServings }) {
   let _servings =
     userServings !== recipeServings ? userServings : recipeServings;
@@ -21,7 +31,13 @@ function Recipe({ title, items, recipeServings, recipeId, userServings }) {
     }
 
     return (
-      <li key={item.node.databaseId} style={{ marginTop: 10 }}>
+      <li
+        key={item.node.databaseId}
+        style={{
+          ...itemStyles.item,
+          ...(item.node.isDone ? itemStyles.isDone : {}),
+        }}
+      >
         <b>{item.node.ingredientLine}</b> ({quantity.toFixed(1)}{" "}
         {item.node.ingredient} {item.node.unit})
       </li>
