@@ -38,7 +38,7 @@ function Recipe({ title, items, recipeServings, recipeId, userServings }) {
       >
         <EuiToolTip position="right" content={item.node.ingredientLine}>
           <Fragment>
-            <b>{item.node.ingredient}</b> {quantity.toFixed(1)} {item.node.unit}
+            <b>{item.node.ingredient}</b> {quantity.toFixed(1)} <i>{item.node.unit}</i>
           </Fragment>
         </EuiToolTip>
       </li>

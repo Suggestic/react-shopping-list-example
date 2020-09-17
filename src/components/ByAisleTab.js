@@ -10,6 +10,7 @@ import TOGGLE_SHOPPING_LIST_ITEM from "../mutations/toggleShoppingListItem";
 const itemStyles = {
   item: {
     marginTop: 10,
+    cursor: "pointer"
   },
   isDone: {
     textDecoration: "line-through",
