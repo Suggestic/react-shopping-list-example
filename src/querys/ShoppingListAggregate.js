@@ -13,19 +13,6 @@ const SHOPPING_LIST_AGGREGATE = gql`
           grams
           isDone
           comment
-          servingEquivalent
-          aggregateMeta {
-            name
-            aisle
-            grams
-            ids
-            idsContribution {
-              databaseId
-              eqv
-            }
-            qty
-            rawQty
-          }
         }
       }
     }

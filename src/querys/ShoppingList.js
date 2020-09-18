@@ -9,7 +9,6 @@ const SHOPPING_LIST = gql`
           quantity
           unit
           isDone
-          isCleared
           ingredientLine
           recipeName
           aisleName

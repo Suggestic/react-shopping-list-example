@@ -10,10 +10,6 @@ const RECIPE_SEARCH = gql`
           name
         }
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
     }
   }
 `;

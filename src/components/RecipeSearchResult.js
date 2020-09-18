@@ -4,7 +4,7 @@ import { EuiProgress, EuiBasicTable, EuiButtonIcon } from "@elastic/eui";
 
 import { useQuery, useMutation } from "@apollo/client";
 
-import RECIPE_SEARCH from "../querys/recipeSearch";
+import RECIPE_SEARCH from "../querys/RecipeSearch";
 import SHOPPING_LIST_AGGREGATE from "../querys/ShoppingListAggregate";
 import ADD_TO_SHOPPING_LIST from "../mutations/addToShoppinList";
 
