@@ -6,6 +6,7 @@ import { useQuery } from "@apollo/client";
 import SHOPPING_LIST from "../querys/ShoppingList";
 
 import UpdateServingButtons from "./UpdateServingButtons";
+import IngredientLineErrors from "./IngredientLineErrors";
 
 const itemStyles = {
   item: {
@@ -38,9 +39,11 @@ function Recipe({ title, items, recipeServings, recipeId, userServings }) {
       >
         <EuiToolTip position="right" content={item.node.ingredientLine}>
           <Fragment>
-            <b>{item.node.ingredient}</b> {quantity.toFixed(1)} <i>{item.node.unit}</i>
+            <b>{item.node.ingredient}</b> {quantity.toFixed(1)}{" "}
+            <i>{item.node.unit}</i>
           </Fragment>
         </EuiToolTip>
+        <IngredientLineErrors errors={item.node.errors} />
       </li>
     );
   });

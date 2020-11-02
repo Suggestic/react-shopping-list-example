@@ -18,6 +18,7 @@ const SHOPPING_LIST = gql`
           comment
           recipeServings
           floatQuantity
+          errors
         }
       }
     }
